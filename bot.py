@@ -45,7 +45,8 @@ def filter_tweets(tweets_):
                 tweet_.in_reply_to_status_id or
                 tweet_.in_reply_to_screen_name or
                 '@' in text or
-                '#' in text or wordfilter.blacklisted(text)):
+                '#' in text or wordfilter.blacklisted(text) or
+                not tact(text)):
             if process(text):
                 break
             else:
