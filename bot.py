@@ -1,13 +1,9 @@
 #!/usr/bin/env python
 
-import os, urllib2, random, tweepy, HTMLParser
-from pycorpora import humans, geography
-from bs4 import BeautifulSoup
+import os, random, tweepy
 from time import gmtime, strftime
 from wordfilter import Wordfilter
 from offensive import tact
-from textblob import TextBlob
-from textblob.blob import Word
 from secrets import *
 
 
@@ -22,6 +18,8 @@ auth = tweepy.OAuthHandler(C_KEY, C_SECRET)
 auth.set_access_token(A_TOKEN, A_TOKEN_SECRET)
 api = tweepy.API(auth)
 tweets = api.user_timeline(bot_username)
+
+wordfilter = Wordfilter()
 
 
 data = {'dreams':
@@ -47,7 +45,7 @@ def filter_tweets(tweets_):
                 tweet_.in_reply_to_status_id or
                 tweet_.in_reply_to_screen_name or
                 '@' in text or
-                '#' in text):
+                '#' in text or wordfilter.blacklisted(text)):
             if process(text):
                 break
             else:
@@ -55,12 +53,17 @@ def filter_tweets(tweets_):
 
 
 def process(text_):
-    trunc = text_.split("dreamt that ", 1)[1]
-    print("\ntrunc")
-    print(trunc)
-    trunc = trunc.encode('utf-8').translate(None, "'\"")
-    if tweet(trunc):
-        return True
+    print("\ntext_")
+    print(text_)
+    if "dreamt that " not in text_:
+        return False
+    else:
+        trunc = text_.split("dreamt that ", 1)[1]
+        print("\ntrunc")
+        print(trunc)
+        trunc = trunc.encode('utf-8').translate(None, "'\"")
+        if tweet(trunc):
+            return True
 
 
 def tweet(text):
