@@ -5,6 +5,8 @@ dreamy-bot
 
 dreamy-bot is a Twitter bot that searches for tweets with phrases like "Last night I dreamt that" or "I dreamt" and then tweets only what follows those phrases — turning dreams into realities.
 
+[@dreamy_bot_](https://twitter.com/dreamy_bot_)
+
 ## Requires ##
 * [wordfilter](https://github.com/dariusk/wordfilter) for filtering bad words 
 * [tweepy](https://github.com/tweepy/tweepy) for Tweeting
