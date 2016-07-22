@@ -70,9 +70,6 @@ def process(text_):
 
 
 def tweet(text_):
-    print("\nPAST TWEETS:")
-    for tweet in tweets:
-        print(tweet.text)
     for tweet in tweets:
         if text_ == tweet.text:
             return False
