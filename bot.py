@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import os, random, tweepy
+import os, re, random, tweepy
 from time import gmtime, strftime
 from wordfilter import Wordfilter
 from offensive import tact
@@ -20,6 +20,7 @@ api = tweepy.API(auth)
 tweets = api.user_timeline(bot_username)
 
 wordfilter = Wordfilter()
+amp = re.compile(r"amp;", re.IGNORECASE)
 
 
 data = {'dreams':
@@ -63,22 +64,26 @@ def process(text_):
         print("\ntrunc")
         print(trunc)
         trunc = trunc.encode('utf-8').translate(None, "'\"")
+        trunc = re.sub(amp, "", trunc)
         if tweet(trunc):
             return True
 
 
-def tweet(text):
+def tweet(text_):
+    print("\nPAST TWEETS:")
     for tweet in tweets:
-        if text == tweet.text:
+        print(tweet.text)
+    for tweet in tweets:
+        if text_ == tweet.text:
             return False
 
     # Send the tweet and log success or failure
     try:
-        api.update_status(text)
+        api.update_status(text_)
     except tweepy.error.TweepError as e:
         log(e.message)
     else:
-        log("Tweeted: " + text)
+        log("Tweeted: " + text_)
         return True
 
 
