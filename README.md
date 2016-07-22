@@ -8,6 +8,10 @@ dreamy-bot is a Twitter bot that searches for tweets with phrases like "Last nig
 ## Requires ##
 * [wordfilter](https://github.com/dariusk/wordfilter) for filtering bad words 
 * [tweepy](https://github.com/tweepy/tweepy) for Tweeting
+* []
+
+## Acknowledgements
+Thanks to [Molly White](https://github.com/molly) for her [framework](https://github.com/molly/twitterbot_framework) and [tutorial](http://blog.mollywhite.net/twitter-bots-pt2/)
 
 ##License
 
