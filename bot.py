@@ -48,6 +48,7 @@ def filter_tweets(tweets_):
         if not (hasattr(tweet_, "retweeted_status") or
                 tweet_.in_reply_to_status_id or
                 tweet_.in_reply_to_screen_name or
+                tweet_.truncated or
                 '@' in text or
                 'RT' in text or
                 '#' in text or wordfilter.blacklisted(text) or
