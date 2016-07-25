@@ -23,7 +23,7 @@ wordfilter = Wordfilter()
 amp = re.compile(r"amp;", re.IGNORECASE)
 
 # Check for mention of "it was just a dream" or "woke up"
-fourth_wall = re.compile(r"dream|woke|somebody love(d|s) me", re.IGNORECASE)
+fourth_wall = re.compile(r"dream(t|ed|ing)?|w(o|a)ke|somebody love(d|s) me", re.IGNORECASE)
 
 
 data = {'dreams':
