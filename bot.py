@@ -17,10 +17,13 @@ logfile_name = bot_username + ".log"
 auth = tweepy.OAuthHandler(C_KEY, C_SECRET)
 auth.set_access_token(A_TOKEN, A_TOKEN_SECRET)
 api = tweepy.API(auth)
-tweets = api.user_timeline(bot_username)
+tweets = tweepy.Cursor(api.user_timeline).items()
 
 wordfilter = Wordfilter()
 amp = re.compile(r"amp;", re.IGNORECASE)
+
+# Check for mention of "it was just a dream" or "woke up"
+fourth_wall = re.compile(r"dream|woke|somebody love(d|s) me", re.IGNORECASE)
 
 
 data = {'dreams':
@@ -46,6 +49,7 @@ def filter_tweets(tweets_):
                 tweet_.in_reply_to_status_id or
                 tweet_.in_reply_to_screen_name or
                 '@' in text or
+                'RT' in text or
                 '#' in text or wordfilter.blacklisted(text) or
                 not tact(text)):
             if process(text):
@@ -70,6 +74,9 @@ def process(text_):
 
 
 def tweet(text_):
+    if re.search(fourth_wall, text_) is not None:
+        return False
+
     for tweet in tweets:
         if text_ == tweet.text:
             return False
