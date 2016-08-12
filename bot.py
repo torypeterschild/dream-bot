@@ -79,7 +79,7 @@ def tweet(text_):
         return False
 
     for tweet in tweets:
-        if text_.lower() == tweet.text.lower():
+        if text_ == tweet.text:
             return False
 
     # Send the tweet and log success or failure
